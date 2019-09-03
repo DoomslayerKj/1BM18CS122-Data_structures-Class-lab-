@@ -1,86 +1,58 @@
+#include<stdlib.h>
 #include<stdio.h>
-#define SIZE 5
+#define max 5
+void push(int [],int , int *);
+void pop(int [],int *);
+void display(int [],int *);
+int main()
+ {
+   int stack[max],ch,num,top=-1;
+   int *top_p=&top;
+   do{
+   printf("Enter 1 for push,2 for pop, 3 for display, anything else for exit \n ");
+   scanf("%d",&ch);
+     switch(ch){
+                case 1:printf("Enter number to push \n");
+                       scanf("%d",&num);
+                       push(stack,num,top_p);
+                       break;
+                case 2:pop(stack,top_p);
+                       break;
+                case 3:display(stack,top_p);
+                       break;
+                default:printf("So you have chosen.......EXIT \n");
+                }
+      }while(ch>0&&ch<=3);
+ return 0;}//main
 
-void push(int stack[], int, int *);
-int pop(int stack[], int *);
-void display(int stack[], int *);
+ void push(int s[],int num,int *top_pp)
+     {
+       if(*top_pp>=(max-1))
+       {
+         printf("Stack overflow");
+       }
+       else
+       {
+         (*top_pp)++;
+         s[*top_pp]=num;
+       }
+     }//push
+void pop(int s[],int *top_pp)
+     {
+      if(*top_pp<0)
+      {
+        printf("Stack underflow \n");
+      }
+      else
+      {
+        printf(" Element popped - %d \n",s[*top_pp]);
+     (*top_pp)--; }
+     }//pop
+void display(int s[],int *top_pp)
+     {
+       printf("Displaying the updated stack(from top) -- \n");
+       for(int i=*top_pp;i>=0;i--)
+        {printf("%d \n",s[i]);
+     }}//display
 
-
-
-void main(){
-	
-	int stack[SIZE];
-	int top = -1, choice, num;
-	int *top_p = &top;
-	
-	do{
-		
-		printf("*****************************************************\n");
-		printf("Enter 1 to push, 2 to pop, 3 to display, 5 to exit\n");
-		printf("*****************************************************\n");
-		fflush(stdin);
-		scanf("%d", &choice);
-		
-		switch(choice){
-			case 1:
-			printf("Enter the number to push\n");
-			fflush(stdin);
-			scanf("%d", &num);
-			push(stack, num, top_p);
-			break;
-			
-			case 2:
-			pop(stack, top_p);
-			break;
-			
-			case 3:
-			display(stack, top_p);
-			break;
-			
-			case 5:
-			break;
-			
-			default:
-			printf("INVALID CHOICE\n");
-		}
-	}while(choice !=5);
-}
-
-void push(int s[], int num, int *top_pointer){
-	
-	if(*top_pointer >=(SIZE-1)){
-		printf("Stack Overflow\n");
-	}
-	
-	else{
-		(*top_pointer)++;
-		s[*top_pointer] = num;		
-		printf("PUSH SUCCESFUL\n");
-	}
-}
-
-int pop(int s[], int *top_pointer){
-	
-	if(*top_pointer == -1){
-		printf("STACK UNDERFLOW\n");
-	}
-	
-	else{
-		printf("POP SUCCESSFUL : %d\n", s[*top_pointer]);
-		(*top_pointer)--;
-		return s[(*top_pointer)+1];
-	}
-}
-
-void display(int s[], int *top_pointer){
-	int i;
-	if(*top_pointer == -1){
-		printf("STACK EMPTY! PUSH FIRST\n");
-	}
-	else{
-		printf("Displaying the Full Stack\n");
-		for(i=0; i<=*top_pointer;i++){
-			printf("%d\n", s[i]);
-		}
-	}
-}
+      
